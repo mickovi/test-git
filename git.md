@@ -76,7 +76,7 @@ $ git commit --amend
 $ git checkout -- [archivo]
 ```
 
-## Añadir Repositorios Remotos
+## Añadir repositorios remotos
 
 ```console
 $ git remote
@@ -85,7 +85,7 @@ $ git remote -v
 
 ```
 
-## Traer y Combinar Remotos
+## Traer y combinar remotos
 
 ```console
 $ git fetch [nombre-remoto]
@@ -97,8 +97,85 @@ $ git pull
 $ git push [nombre-remoto] [nombre-rama]
 ```
 
-
-$ git reflog
+## Eliminar y renombrar remotos
 
 ```console
+$ git remote rename [nombre-antiguo] [nombre-nuevo]
+$ git remote rm [nombre-remoto]
 ```
+
+## Etiquetado
+```console
+$ git tag
+```
+
+## Crear etiquetas
+Existen dos tipos: 
+1. Las etiquetas *ligeras* es muy parecido a una rama que no cambia ( simplemente es un puntero a un commit específico).
+2. Las etiquetas *anotadas* se guardan en la base de datos de Git como objetos enteros.
+
+### Etiquetas anotadas
+
+```console
+$ git tag -a v1.4 -m 'new version 1.4'
+git show
+```
+
+### Etiquetas ligeras
+
+```console
+$ git tag v1.4-lw
+git show
+```
+
+### Etiquetado tardío
+
+```console
+$ git tag -a [version] [checksum-del-commit]
+git show
+```
+## Compartir etiquetas
+
+### Etiquetado tardío
+
+```console
+$ git push [remoto] [version]
+$ git push [remoto] --tags
+```
+## Sacar una etiqueta
+
+En Git, no puedes sacar (check out) una etiqueta, pues no es algo que puedas mover. Si quieres colocar en tu directorio de trabajo una versión de tu repositorio que coincida con alguna etiqueta, debes crear una rama nueva en esa etiqueta:
+
+```console
+$ git checkout -b version v2.0.0
+```
+-> Switched to a new branch 'version2'
+Obviamente, si haces esto y luego confirmas tus cambios, tu rama version2 será ligeramente distinta a tu etiqueta v2.0.0 puesto que incluirá tus nuevos cambios; así que
+ten cuidado.
+
+## Alias de Git
+```console
+$ git config --global alias.[mi_alias] [comando-git]
+```
+Ejemplos:
+
+```console
+$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+```
+Puedes crear tus propios comandos con alias. Por ejemplo, para ver el último commit:
+
+```console
+$ git config --global alias.last 'log -1 HEAD'
+```
+
+También puedes ejecutar un comando externo en
+lugar de un subcomando de Git:
+
+```console
+$ git config --global alias.visual "!gitk"
+```
+
+$ git reflog
